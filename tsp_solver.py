@@ -8,13 +8,13 @@ import csv
 #######################################################################################
 
 POPULATION_SIZE = 100
-GENERATIONS = 10
+GENERATIONS = 50
 CROSSOVER_OPERATOR = 'CX1'
 MUTATION_OPERATOR = 'swapMutate'
 
-SELECTION_PRESSURE = 50
+SELECTION_PRESSURE = 0.5
 MUTATION_RATE = 0.5
-ELITISM_PROPORTION = 0.2
+ELITISM_PROPORTION = 0.1
 
 
 #######################################################################################
@@ -75,8 +75,7 @@ def calcDistance(locations, order):
 
 # Tournament Selection: Sample individuals according to selection probabilities
 def tournament_selection(locations, POPULATION):
-    global SELECTION_PRESSURE
-    mating_pool = random.sample(POPULATION, SELECTION_PRESSURE)
+    mating_pool = random.sample(POPULATION, int(SELECTION_PRESSURE*POPULATION_SIZE))
     mating_pool = sorted(
         mating_pool,
         key = lambda x: calcDistance(locations, x)
@@ -232,14 +231,17 @@ def _readFlags():
     parser.add_argument("-f", "--fitness", dest='generations', default=100, help='FITNESS EVALUATIONS', type=int)
     parser.add_argument("-m", "--mutate", dest='mutate', default='swapMutate', help='MUTATION OPERATOR')
     parser.add_argument("-x", "--crossover", dest='crossover', default='CX1', help='CROSSOVER OPERATOR')
+    parser.add_argument("-s", "--selection_pressure", dest='selection', default=0.5, help='SELECTION PRESSURE', type=float)
+    parser.add_argument("-e", "--elitism", dest='elitism', default=0.1, help='ELITISM PROPORTION', type=float)
+    parser.add_argument("-mr", "--mutation_rate", dest='mutation_rate', default=0.5, help='MUTATION RATE', type=float)
 
     args = parser.parse_args()
     return args
 
 def saveFile(BEST_PATH):
-    BEST_PATH = [[x] for x in BEST_PATH]
+    BEST_PATH = [[int(x)] for x in BEST_PATH]
     with open('solution.csv', 'w', newline='') as file:
-        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
+        writer = csv.writer(file)
         writer.writerows(BEST_PATH)
 
 def ga():
@@ -247,12 +249,18 @@ def ga():
     global GENERATIONS
     global MUTATION_OPERATOR
     global CROSSOVER_OPERATOR
+    global SELECTION_PRESSURE
+    global MUTATION_RATE
+    global ELITISM_PROPORTION
 
     args = _readFlags()
     POPULATION_SIZE = args.population
     GENERATIONS = args.generations
     MUTATION_OPERATOR = args.mutate
     CROSSOVER_OPERATOR = args.crossover
+    SELECTION_PRESSURE = args.selection
+    MUTATION_RATE = args.mutation_rate
+    ELITISM_PROPORTION = args.elitism
 
     BEST_PATH = None
 
