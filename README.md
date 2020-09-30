@@ -8,7 +8,7 @@ This code was written for the **[CS454] AI-Based Software Engineering** class du
 Attempt to solve the TSP using a genetic algorithm. Instances of TSP were used from the TSPLIB. In particular, the code was designed to solve the RL11849 problem. Refer to documentation for details.
 
 ### Result
-rl11849.tsp (Number of Generations = 100, Population Size = 100): 84,035,238
+rl11849.tsp (Number of Generations = 50, Population Size = 100): 83,028,544
 
 ### References
 TSPLIB: http://elib.zib.de/pub/mp-testdata/tsp/tsplib/tsplib.html
