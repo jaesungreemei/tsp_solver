@@ -8,7 +8,7 @@ import csv
 #######################################################################################
 
 POPULATION_SIZE = 100
-GENERATIONS = 100
+GENERATIONS = 10
 CROSSOVER_OPERATOR = 'CX1'
 MUTATION_OPERATOR = 'swapMutate'
 
@@ -220,13 +220,6 @@ def nextGen(POPULATION, OFFSPRING, locations):
 
     return newPOPULATION, bestPopulation[0], bestOffspring[0]
 
-# MUTATION OPERATOR
-def mutate(path):
-    if(MUTATION_OPERATOR == 'swapMutate'):
-        return swapMutate(path)
-    if(MUTATION_OPERATOR == 'RSM'):
-        return RSM(path)
-
 
 #######################################################################################
 # GENETIC ALGORITHM IMPLEMENTATION
@@ -246,7 +239,7 @@ def _readFlags():
 def saveFile(BEST_PATH):
     BEST_PATH = [[x] for x in BEST_PATH]
     with open('solution.csv', 'w', newline='') as file:
-        writer = csv.writer(file)
+        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
         writer.writerows(BEST_PATH)
 
 def ga():
