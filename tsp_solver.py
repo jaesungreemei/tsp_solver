@@ -220,10 +220,11 @@ def nextGen(POPULATION, OFFSPRING, locations):
 
     return newPOPULATION, bestPopulation[0], bestOffspring[0]
 
-
+# MUTATION OPERATOR
+def mutate(path):
     if(MUTATION_OPERATOR == 'swapMutate'):
         return swapMutate(path)
-    elif(MUTATION_OPERATOR == 'RSM'):
+    if(MUTATION_OPERATOR == 'RSM'):
         return RSM(path)
 
 
@@ -243,9 +244,10 @@ def _readFlags():
     return args
 
 def saveFile(BEST_PATH):
+    BEST_PATH = [[x] for x in BEST_PATH]
     with open('solution.csv', 'w', newline='') as file:
-        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
-        writer.writerow(BEST_PATH)
+        writer = csv.writer(file)
+        writer.writerows(BEST_PATH)
 
 def ga():
     global POPULATION_SIZE
