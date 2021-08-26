@@ -1,5 +1,5 @@
 # Traveling Salesman Problem
-## October 5th, 2020, Jae Sung Park
+#### October 5th, 2020, Jae Sung Park
 
 ### Background
 This code was written for the **[CS454] AI-Based Software Engineering** class during the 2020 fall semester at the **Korea Advanced Institute of Science and Technology (KAIST)**
